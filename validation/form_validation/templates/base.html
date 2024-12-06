@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test validation forms</title>
+</head>
+<body>
+    <h1>Тестер валидации форм</h1>
+    <form method="POST" action="/get_form/">
+        {% csrf_token %}
+        <label for="field_name_1">Field 1 (Email):</label>
+        <input type="text" name="field_name_1" id="field_name_1" required><br>
+
+        <label for="field_name_2">Field 2 (Phone):</label>
+        <input type="text" name="field_name_2" id="field_name_2" required pattern="^\+7 \d{3} \d{3} \d{2} \d{2}$"><br>
+
+        <label for="field_name_3">Field 3 (Date):</label>
+        <input type="text" name="field_name_3" id="field_name_3" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <hr>
+
+    {% if template_name %}
+        <h2>Matching Form Template: {{ template_name }}</h2>
+    {% elif field_types %}
+        <h2>Field Validation Results:</h2>
+        <ul>
+            {% for field, field_type in field_types %}
+                <li>{{ field }}: {{ field_type }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+
